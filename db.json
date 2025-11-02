@@ -1,0 +1,64 @@
+{
+  "users": [
+    { "id": "ql1", "username": "manager1", "password": "123", "role": "management", "theaterId": 1 },
+    { "id": "ql2", "username": "manager2", "password": "123", "role": "management", "theaterId": 2 },
+    { "id": "bv1", "username": "sales1", "password": "123", "role": "sales" },
+    { "id": "bv2", "username": "sales2", "password": "123", "role": "sales" },
+    { "id": "bv3", "username": "sales3", "password": "123", "role": "sales" },
+    { "id": "bv4", "username": "sales4", "password": "123", "role": "sales" }
+  ],
+  "theaters": [
+    { "id": 1, "name": "Rạp 1 - Gò Vấp" },
+    { "id": 2, "name": "Rạp 2 - Quận 1" },
+    { "id": 3, "name": "Rạp 3 - Tân Bình" },
+    { "id": 4, "name": "Rạp 4 - Thủ Đức" },
+    { "id": 5, "name": "Rạp 5 - Bình Thạnh" }
+  ],
+  "screeningRooms": [
+    { "id": "P101", "theaterId": 1, "name": "Phòng 1", "type": "loai1", "seats": 100 },
+    { "id": "P102", "theaterId": 1, "name": "Phòng 2", "type": "loai2", "seats": 60 }
+  ],
+  "movies": [
+    { "id": "M001", "title": "Lật Mặt 7" },
+    { "id": "M002", "title": "Doraemon Movie" },
+    { "id": "M003", "title": "Godzilla x Kong" }
+  ],
+  "shifts": [
+    { "id": "CA1", "name": "Sáng", "time": "9:00-11:00" },
+    { "id": "CA2", "name": "Chiều", "time": "14:00-16:00" },
+    { "id": "CA3", "name": "Tối 1", "time": "18:00-20:00" },
+    { "id": "CA4", "name": "Tối 2", "time": "20:30-22:30" }
+  ],
+  "showtimes": [
+    { 
+      "id": "SC001", 
+      "movieId": "M001", 
+      "roomId": "P101", 
+      "shiftId": "CA1", 
+      "date": "2025-11-04" 
+    },
+    { 
+      "id": "SC002", 
+      "movieId": "M002", 
+      "roomId": "P102", 
+      "shiftId": "CA1", 
+      "date": "2025-11-04" 
+    }
+  ],
+  "tickets": [
+    { 
+      "id": "T00001", 
+      "showtimeId": "SC001", 
+      "seat": "A1", 
+      "soldAt": "2025-11-03T10:30:00", 
+      "soldBy": "bv1" 
+    },
+    { 
+      "id": "T00002", 
+      "showtimeId": "SC001", 
+      "seat": "A2", 
+      "soldAt": "2025-11-03T10:31:00", 
+      "soldBy": "bv2" 
+    }
+  ]
+}

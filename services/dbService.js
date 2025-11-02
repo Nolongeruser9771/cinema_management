@@ -1,0 +1,1 @@
+// Đặt hàm loadDb() và saveDb()

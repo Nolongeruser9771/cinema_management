@@ -1,0 +1,1 @@
+// Chứa hàm check login, check role 'isManager'
