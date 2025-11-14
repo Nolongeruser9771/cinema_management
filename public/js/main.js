@@ -7,29 +7,31 @@ async function openSeatModal(showtimeId) {
   try {
     const response = await fetch(`/sales/showtime/${showtimeId}/seats`);
     const data = await response.json();
-
+    
     currentShowtime = data.showtime;
     const room = data.room;
     const soldSeats = data.soldSeats;
-
+    
     // Cập nhật tiêu đề modal
     document.getElementById('modalTitle').textContent = 'Chọn ghế - ' + data.showtime.movieTitle;
     
     // Hiển thị thông tin suất chiếu
     document.getElementById('seatInfo').innerHTML = `
-      <p><strong>Phim:</strong> ${data.showtime.movieTitle}</p>
-      <p><strong>Ca chiếu:</strong> ${data.showtime.shiftName} (${data.showtime.shiftTime})</p>
-      <p><strong>Ngày:</strong> ${data.showtime.date}</p>
-      <p><strong>Phòng:</strong> ${room.name} (${room.seats} ghế)</p>
+      Phim: ${data.showtime.movieTitle}
+      Ca chiếu: ${data.showtime.shiftName} (${data.showtime.shiftTime})
+      Ngày: ${data.showtime.date}
+      Phòng: ${room.name} (${room.seats} ghế)
+      Giá vé thường: ${data.showtime.standardPrice.toLocaleString('vi-VN')} đ
+      Giá vé VIP: ${data.showtime.vipPrice.toLocaleString('vi-VN')} đ
     `;
-
+    
     // Tạo lưới ghế
-    createSeatGrid(room.seats, soldSeats);
-
+    createSeatGrid(room.seatLayout, soldSeats);
+    
     // Reset ghế đã chọn
     selectedSeats = [];
     updateSelectedSeatsDisplay();
-
+    
     // Hiển thị modal
     document.getElementById('seatModal').style.display = 'block';
   } catch (error) {
@@ -44,17 +46,24 @@ function closeSeatModal() {
   currentShowtime = null;
 }
 
+// Xác định loại ghế (VIP hay thường)
+function getSeatType(seatNumber, seatLayout) {
+  const row = seatNumber.charCodeAt(0) - 65; // A=0, B=1, ...
+  return seatLayout.vipRows.includes(row) ? 'vip' : 'standard';
+}
+
 // Tạo lưới ghế
-function createSeatGrid(totalSeats, soldSeats) {
+function createSeatGrid(seatLayout, soldSeats) {
   const seatGrid = document.getElementById('seatGrid');
   seatGrid.innerHTML = '';
-
-  // Tính số hàng và cột
-  const rows = totalSeats === 100 ? 10 : 6; // 100 ghế: 10x10, 60 ghế: 6x10
-  const cols = 10;
-
+  
+  const rows = seatLayout.rows;
+  const cols = seatLayout.cols;
   const rowLabels = 'ABCDEFGHIJ';
-
+  
+  // Cập nhật grid columns
+  seatGrid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+  
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
       const seatNumber = rowLabels[i] + (j + 1);
@@ -62,14 +71,24 @@ function createSeatGrid(totalSeats, soldSeats) {
       seat.className = 'seat';
       seat.textContent = seatNumber;
       seat.dataset.seat = seatNumber;
-
+      
+      // Xác định loại ghế
+      const seatType = getSeatType(seatNumber, seatLayout);
+      seat.dataset.type = seatType;
+      
+      // Style cho ghế VIP
+      if (seatType === 'vip') {
+        seat.style.borderColor = '#ff6b6b';
+        seat.style.background = '#ffebee';
+      }
+      
       // Kiểm tra ghế đã bán
       if (soldSeats.includes(seatNumber)) {
         seat.classList.add('seat-sold');
       } else {
         seat.onclick = () => toggleSeat(seatNumber, seat);
       }
-
+      
       seatGrid.appendChild(seat);
     }
   }
@@ -77,7 +96,7 @@ function createSeatGrid(totalSeats, soldSeats) {
 
 // Toggle chọn ghế
 function toggleSeat(seatNumber, seatElement) {
-  const index = selectedSeats.indexOf(seatNumber);
+  const index = selectedSeats.findIndex(s => s.number === seatNumber);
   
   if (index > -1) {
     // Bỏ chọn ghế
@@ -85,21 +104,47 @@ function toggleSeat(seatNumber, seatElement) {
     seatElement.classList.remove('seat-selected');
   } else {
     // Chọn ghế
-    selectedSeats.push(seatNumber);
+    const seatType = seatElement.dataset.type;
+    const price = seatType === 'vip' ? currentShowtime.vipPrice : currentShowtime.standardPrice;
+    
+    selectedSeats.push({
+      number: seatNumber,
+      type: seatType,
+      price: price
+    });
     seatElement.classList.add('seat-selected');
   }
-
+  
   updateSelectedSeatsDisplay();
 }
 
-// Cập nhật hiển thị ghế đã chọn
+// Cập nhật hiển thị ghế đã chọn và tính tiền
 function updateSelectedSeatsDisplay() {
   const display = document.getElementById('selectedSeats');
+  const priceBreakdown = document.getElementById('priceBreakdown');
+  const totalAmount = document.getElementById('totalAmount');
+  
   if (selectedSeats.length === 0) {
     display.textContent = 'Chưa chọn ghế nào';
-  } else {
-    display.textContent = selectedSeats.join(', ');
+    priceBreakdown.innerHTML = '';
+    totalAmount.textContent = '0';
+    return;
   }
+  
+  // Hiển thị danh sách ghế
+  display.textContent = selectedSeats.map(s => s.number).join(', ');
+  
+  // Hiển thị chi tiết giá
+  let breakdown = 'Chi tiết:';
+  let total = 0;
+  
+  selectedSeats.forEach(seat => {
+    breakdown += `Ghế ${seat.number} (${seat.type === 'vip' ? 'VIP' : 'Thường'}): ${seat.price.toLocaleString('vi-VN')} đ`;
+    total += seat.price;
+  });
+  
+  priceBreakdown.innerHTML = breakdown;
+  totalAmount.textContent = total.toLocaleString('vi-VN');
 }
 
 // Bán vé
@@ -108,11 +153,14 @@ async function sellTickets() {
     alert('Vui lòng chọn ít nhất một ghế');
     return;
   }
-
-  if (!confirm(`Xác nhận bán ${selectedSeats.length} vé cho ghế: ${selectedSeats.join(', ')}?`)) {
+  
+  const seatNumbers = selectedSeats.map(s => s.number);
+  const total = selectedSeats.reduce((sum, s) => sum + s.price, 0);
+  
+  if (!confirm(`Xác nhận bán ${selectedSeats.length} vé cho ghế: ${seatNumbers.join(', ')}?\nTổng tiền: ${total.toLocaleString('vi-VN')} đ`)) {
     return;
   }
-
+  
   try {
     const response = await fetch('/sales/sell-ticket', {
       method: 'POST',
@@ -121,14 +169,14 @@ async function sellTickets() {
       },
       body: JSON.stringify({
         showtimeId: currentShowtime.id,
-        seats: selectedSeats
+        seats: seatNumbers
       })
     });
-
+    
     const result = await response.json();
-
+    
     if (result.success) {
-      alert(result.message);
+      alert(result.message + '\nTổng tiền: ' + result.totalAmount.toLocaleString('vi-VN') + ' đ');
       closeSeatModal();
       // Reload trang để cập nhật
       window.location.reload();
@@ -159,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     input.min = today;
   });
-
+  
   // Set tháng mặc định cho báo cáo
   const monthInput = document.querySelector('input[type="month"]');
   if (monthInput && !monthInput.value) {

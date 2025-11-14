@@ -427,3 +427,40 @@ h1 {
   text-align: center;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
+
+/* 4 dropdown trên 1 hàng */
+.form-row.form-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Dropdown / input cùng chiều cao */
+.form-row.form-4 select,
+.form-row.form-4 input {
+  height: 40px;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+/* Đảm bảo multiple cũng không bị dài */
+.form-row.form-4 select[multiple] {
+  overflow-y: auto;
+}
+
+/* Mobile responsive */
+@media (max-width: 992px) {
+  .form-row.form-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .form-row.form-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+#theaterIds option {
+  padding-left: 10px;   /* dịch vào trong */
+}

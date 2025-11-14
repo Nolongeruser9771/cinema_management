@@ -6,7 +6,12 @@ const { loadDb } = require('../services/dbService');
 // Trang đăng nhập
 router.get('/login', (req, res) => {
   if (req.session.userId) {
-    return res.redirect('/');
+    // Redirect dựa vào role
+    if (req.session.userRole === 'management') {
+      return res.redirect('/management/schedule');
+    } else if (req.session.userRole === 'sales') {
+      return res.redirect('/sales');
+    }
   }
   res.render('pages/login', { error: null });
 });
@@ -15,45 +20,63 @@ router.get('/login', (req, res) => {
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
   const db = loadDb();
-
+  
   if (!db) {
     return res.render('pages/login', { error: 'Lỗi hệ thống' });
   }
 
   const user = db.users.find(u => u.username === username);
-
+  
   if (!user) {
     return res.render('pages/login', { error: 'Tên đăng nhập hoặc mật khẩu không đúng' });
   }
 
-  // So sánh mật khẩu (trong thực tế nên dùng bcrypt.compare)
-  // Tạm thời so sánh trực tiếp vì password trong db.json đã băm
-  const isValidPassword = password === '123456'; // Mật khẩu mặc định cho demo
-
+  // So sánh mật khẩu (mật khẩu demo là 123456)
+  const isValidPassword = password === '123456';
+  
   if (!isValidPassword) {
     return res.render('pages/login', { error: 'Tên đăng nhập hoặc mật khẩu không đúng' });
   }
 
-  // Lưu thông tin vào session
+  // Lấy danh sách rạp được quản lý
+  let managedTheaters = [];
+  if (user.role === 'management') {
+    const managerInfo = db.theaterManagers.find(tm => tm.userId === user.id);
+    managedTheaters = managerInfo ? managerInfo.theaterIds : [];
+  }
+
+  // Lưu thông tin vào session với cookie được cấu hình lại
   req.session.userId = user.id;
   req.session.username = user.username;
   req.session.userRole = user.role;
-  req.session.theaterId = user.theaterId;
+  req.session.managedTheaters = managedTheaters;
+  
+  // Lưu session trước khi redirect
+  req.session.save((err) => {
+    if (err) {
+      console.error('Session save error:', err);
+      return res.render('pages/login', { error: 'Lỗi khi lưu phiên đăng nhập' });
+    }
 
-  // Điều hướng theo vai trò
-  if (user.role === 'management') {
-    res.redirect('/management/schedule');
-  } else if (user.role === 'sales') {
-    res.redirect('/sales');
-  } else {
-    res.redirect('/');
-  }
+    // Điều hướng theo vai trò
+    if (user.role === 'management') {
+      res.redirect('/management/schedule');
+    } else if (user.role === 'sales') {
+      res.redirect('/sales');
+    } else {
+      res.redirect('/');
+    }
+  });
 });
 
 // Đăng xuất
 router.get('/logout', (req, res) => {
-  req.session.destroy();
-  res.redirect('/login');
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Logout error:', err);
+    }
+    res.redirect('/login');
+  });
 });
 
 module.exports = router;

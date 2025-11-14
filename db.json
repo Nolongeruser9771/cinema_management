@@ -17,11 +17,33 @@
   "theaters": [
     {
       "id": 1,
-      "name": "CGV Nguyễn Du"
+      "name": "CGV Nguyễn Du",
+      "address": "50-52 Nguyễn Du, Q.1, TP.HCM",
+      "phone": "1900-6017"
     },
     {
       "id": 2,
-      "name": "CGV Vincom"
+      "name": "CGV Vincom",
+      "address": "Vincom Center, Q.1, TP.HCM",
+      "phone": "1900-6017"
+    },
+    {
+      "id": 3,
+      "name": "CGV Aeon Mall",
+      "address": "Aeon Mall, Q.Tân Phú, TP.HCM",
+      "phone": "1900-6017"
+    },
+    {
+      "id": 4,
+      "name": "CGV Crescent Mall",
+      "address": "Crescent Mall, Q.7, TP.HCM",
+      "phone": "1900-6017"
+    },
+    {
+      "id": 5,
+      "name": "CGV Landmark 81",
+      "address": "Landmark 81, Q.Bình Thạnh, TP.HCM",
+      "phone": "1900-6017"
     }
   ],
   "screeningRooms": [
@@ -30,21 +52,32 @@
       "theaterId": 1,
       "name": "Phòng 1",
       "type": "loai1",
-      "seats": 100
+      "seats": 100,
+      "seatLayout": {
+        "rows": 10,
+        "cols": 10,
+        "vipRows": [
+          4,
+          5,
+          6
+        ]
+      }
     },
     {
       "id": "r2",
       "theaterId": 1,
       "name": "Phòng 2",
       "type": "loai2",
-      "seats": 60
-    },
-    {
-      "id": "r3",
-      "theaterId": 2,
-      "name": "Phòng A",
-      "type": "loai1",
-      "seats": 100
+      "seats": 60,
+      "seatLayout": {
+        "rows": 6,
+        "cols": 10,
+        "vipRows": [
+          2,
+          3,
+          4
+        ]
+      }
     }
   ],
   "movies": [
@@ -85,25 +118,34 @@
   ],
   "showtimes": [
     {
-      "id": "st1",
-      "movieId": "m1",
-      "roomId": "r1",
-      "shiftId": "s1",
-      "date": "2025-11-15"
-    },
-    {
       "id": "st2",
       "movieId": "m2",
       "roomId": "r2",
       "shiftId": "s2",
-      "date": "2025-11-15"
+      "date": "2025-11-15",
+      "theaterId": 1,
+      "standardPrice": 55000,
+      "vipPrice": 85000
     },
     {
-      "id": "st1763134716562qbhxpee36",
+      "id": "st17631410607939dckjxbux",
       "movieId": "m1",
       "roomId": "r1",
+      "shiftId": "s2",
+      "theaterId": 1,
+      "date": "2025-11-15",
+      "standardPrice": 150000,
+      "vipPrice": 200000
+    },
+    {
+      "id": "st1763143307545y1qrehxd2",
+      "movieId": "m2",
+      "roomId": "r2",
       "shiftId": "s1",
-      "date": "2025-11-16"
+      "theaterId": 1,
+      "date": "2025-11-14",
+      "standardPrice": 70000,
+      "vipPrice": 140000
     }
   ],
   "tickets": [
@@ -111,71 +153,109 @@
       "id": "t1",
       "showtimeId": "st1",
       "seat": "A1",
+      "seatType": "standard",
+      "price": 50000,
       "soldAt": "2025-11-14T10:30:00",
       "soldBy": "u2"
     },
     {
-      "id": "t2",
+      "id": "t1763140955883t8baf683s",
       "showtimeId": "st1",
-      "seat": "A2",
-      "soldAt": "2025-11-14T10:31:00",
+      "seat": "D5",
+      "seatType": "standard",
+      "price": 50000,
+      "soldAt": "2025-11-14T17:22:35.883Z",
       "soldBy": "u2"
     },
     {
-      "id": "t1763134832302pvmejt7z7",
+      "id": "t1763140955885oufkk92c9",
       "showtimeId": "st1",
+      "seat": "D6",
+      "seatType": "standard",
+      "price": 50000,
+      "soldAt": "2025-11-14T17:22:35.885Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763140955885g4fkg18fq",
+      "showtimeId": "st1",
+      "seat": "D7",
+      "seatType": "standard",
+      "price": 50000,
+      "soldAt": "2025-11-14T17:22:35.885Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t17631409558851zd12k9yg",
+      "showtimeId": "st1",
+      "seat": "H4",
+      "seatType": "standard",
+      "price": 50000,
+      "soldAt": "2025-11-14T17:22:35.885Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t176314095588502i9yo2s6",
+      "showtimeId": "st1",
+      "seat": "H5",
+      "seatType": "standard",
+      "price": 50000,
+      "soldAt": "2025-11-14T17:22:35.885Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763140955885zlkjwcmdq",
+      "showtimeId": "st1",
+      "seat": "G6",
+      "seatType": "vip",
+      "price": 80000,
+      "soldAt": "2025-11-14T17:22:35.885Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763141098215wii4vscaz",
+      "showtimeId": "st17631410607939dckjxbux",
       "seat": "E5",
-      "soldAt": "2025-11-14T15:40:32.302Z",
+      "seatType": "vip",
+      "price": 200000,
+      "soldAt": "2025-11-14T17:24:58.215Z",
       "soldBy": "u1"
     },
     {
-      "id": "t176313483230272otnhbsr",
-      "showtimeId": "st1",
-      "seat": "E6",
-      "soldAt": "2025-11-14T15:40:32.302Z",
+      "id": "t1763141098217nlvtm5xtu",
+      "showtimeId": "st17631410607939dckjxbux",
+      "seat": "D5",
+      "seatType": "standard",
+      "price": 150000,
+      "soldAt": "2025-11-14T17:24:58.217Z",
       "soldBy": "u1"
     },
     {
-      "id": "t1763134832302vrgrpxtaf",
+      "id": "t1763143265121rbks525fr",
       "showtimeId": "st1",
-      "seat": "E7",
-      "soldAt": "2025-11-14T15:40:32.302Z",
+      "seat": "H6",
+      "seatType": "standard",
+      "price": 50000,
+      "soldAt": "2025-11-14T18:01:05.121Z",
       "soldBy": "u1"
     },
     {
-      "id": "t1763134879994m0pmyrrfj",
-      "showtimeId": "st1",
-      "seat": "A3",
-      "soldAt": "2025-11-14T15:41:19.994Z",
-      "soldBy": "u2"
-    },
-    {
-      "id": "t1763134879994yz8ygdcs2",
-      "showtimeId": "st1",
-      "seat": "A4",
-      "soldAt": "2025-11-14T15:41:19.994Z",
-      "soldBy": "u2"
-    },
-    {
-      "id": "t1763134879994ye5wz11rq",
-      "showtimeId": "st1",
-      "seat": "A5",
-      "soldAt": "2025-11-14T15:41:19.994Z",
-      "soldBy": "u2"
-    },
-    {
-      "id": "t1763134949339vjiokmt0r",
+      "id": "t1763143265122ukiizh4y4",
       "showtimeId": "st1",
       "seat": "F5",
-      "soldAt": "2025-11-14T15:42:29.340Z",
-      "soldBy": "u2"
-    },
+      "seatType": "vip",
+      "price": 80000,
+      "soldAt": "2025-11-14T18:01:05.122Z",
+      "soldBy": "u1"
+    }
+  ],
+  "theaterManagers": [
     {
-      "id": "t1763134949340cciku2jlb",
-      "showtimeId": "st1",
-      "seat": "F6",
-      "soldAt": "2025-11-14T15:42:29.340Z",
-      "soldBy": "u2"
+      "userId": "u1",
+      "theaterIds": [
+        1,
+        2
+      ]
     }
   ]
 }

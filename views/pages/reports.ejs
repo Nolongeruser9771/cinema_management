@@ -2,50 +2,80 @@
 <%- include('../partials/navbar') %>
 
 <div class="container">
-  <h1>Báo Cáo Thống Kê (BM2)</h1>
+  <h1>📊 Báo Cáo Thống Kê Bán Vé</h1>
 
+  <!-- Redesigned report filter form -->
   <div class="form-box">
-    <h2>Chọn Tháng Để Xem Báo Cáo</h2>
+    <h2>📈 Chọn Tháng Và Rạp Để Xem Báo Cáo</h2>
     <form method="POST" action="/management/reports/generate">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="month">Chọn tháng *</label>
-          <input type="month" id="month" name="month" required>
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary">Xem báo cáo</button>
-        </div>
+    <div class="form-row" style="align-items: flex-end; gap: 15px;">
+
+      <!-- Month input -->
+      <div class="form-group" style="flex: 1; display: flex; flex-direction: column;">
+        <label for="month" style="">Chọn tháng</label>
+        <input type="month" id="month" name="month" required style="height: 46px; padding: 6px;">
       </div>
+
+      <!-- Theater multi-select -->
+      <div class="form-group">
+        <label for="theaterIds">🏢 Rạp chiếu</label>
+        <select id="theaterIds" name="theaterIds" multiple size="1" style="height: 46px; padding: 6px;">
+          <% theaters.forEach(theater => { %>
+            <option value="<%= theater.id %>"><%= theater.name %></option>
+          <% }) %>
+        </select>
+      </div>
+
+      <!-- Submit button -->
+      <div class="form-group" style="flex: 0 0 auto; display: flex; flex-direction: column; justify-content: flex-end;">
+        <button type="submit" class="btn btn-primary btn-block" style="height: 46px;">📊 Xem báo cáo</button>
+      </div>
+    </div>
+
     </form>
   </div>
 
   <% if (report) { %>
+  <!-- Enhanced report display with better styling -->
   <div class="report-box">
-    <h2>Báo Cáo Thống Kê Vé Bán (BM2)</h2>
+    <h2>📈 Báo Cáo Thống Kê Vé Bán</h2>
     <div class="report-header">
-      <p><strong>Tháng:</strong> <%= report.month %></p>
-      <p><strong>Tổng số vé:</strong> <%= report.totalTickets %></p>
+      <p><strong>📅 Tháng:</strong> <%= report.month %></p>
+      <p><strong>🏢 Rạp được chọn:</strong> <%= report.selectedTheaters.map(t => t.name).join(', ') %></p>
+      <p style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #e8e8eb; font-size: 16px;">
+        <strong>🎫 Tổng số vé:</strong> <span style="color: #0071e3; font-weight: 700;"><%= report.totalTickets %></span>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <strong>💰 Tổng doanh thu:</strong> <span style="color: #34c759; font-weight: 700;"><%= report.totalRevenue.toLocaleString('vi-VN') %> đ</span>
+      </p>
     </div>
 
     <% if (report.shifts.length > 0) { %>
-    <table class="table report-table">
-      <thead>
-        <tr>
-          <th>Ca chiếu</th>
-          <th>Số vé bán</th>
-          <th>Tỷ lệ (%)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% report.shifts.forEach(shift => { %>
-        <tr>
-          <td><%= shift.shiftName %></td>
-          <td><%= shift.count %></td>
-          <td><%= shift.percentage %>%</td>
-        </tr>
-        <% }) %>
-      </tbody>
-    </table>
+    <div style="overflow-x: auto;">
+      <table class="table report-table">
+        <thead>
+          <tr>
+            <th>⏰ Ca chiếu</th>
+            <th>🎫 Số vé bán</th>
+            <th>💰 Doanh thu</th>
+            <th>📊 Tỷ lệ (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% report.shifts.forEach(shift => { %>
+          <tr>
+            <td><strong><%= shift.shiftName %></strong></td>
+            <td style="text-align: center;"><span style="background: #f5f5f7; padding: 6px 12px; border-radius: 4px; display: inline-block;"><%= shift.count %></span></td>
+            <td><strong style="color: #34c759;"><%= shift.revenue.toLocaleString('vi-VN') %> đ</strong></td>
+            <td>
+              <div style="background: #f5f5f7; border-radius: 4px; padding: 4px 8px; text-align: center;">
+                <span style="color: #0071e3; font-weight: 600;"><%= shift.percentage %>%</span>
+              </div>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
     <% } else { %>
       <p class="no-data">Không có dữ liệu vé bán trong tháng này.</p>
     <% } %>
