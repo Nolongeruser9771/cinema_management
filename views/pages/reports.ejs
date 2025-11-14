@@ -1,1 +1,56 @@
-<!-- (Giao diện báo cáo BM2) -->
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="container">
+  <h1>Báo Cáo Thống Kê (BM2)</h1>
+
+  <div class="form-box">
+    <h2>Chọn Tháng Để Xem Báo Cáo</h2>
+    <form method="POST" action="/management/reports/generate">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="month">Chọn tháng *</label>
+          <input type="month" id="month" name="month" required>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Xem báo cáo</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <% if (report) { %>
+  <div class="report-box">
+    <h2>Báo Cáo Thống Kê Vé Bán (BM2)</h2>
+    <div class="report-header">
+      <p><strong>Tháng:</strong> <%= report.month %></p>
+      <p><strong>Tổng số vé:</strong> <%= report.totalTickets %></p>
+    </div>
+
+    <% if (report.shifts.length > 0) { %>
+    <table class="table report-table">
+      <thead>
+        <tr>
+          <th>Ca chiếu</th>
+          <th>Số vé bán</th>
+          <th>Tỷ lệ (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% report.shifts.forEach(shift => { %>
+        <tr>
+          <td><%= shift.shiftName %></td>
+          <td><%= shift.count %></td>
+          <td><%= shift.percentage %>%</td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% } else { %>
+      <p class="no-data">Không có dữ liệu vé bán trong tháng này.</p>
+    <% } %>
+  </div>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,38 @@
+<%- include('../partials/header') %>
+
+<div class="login-container">
+  <div class="login-box">
+    <div class="login-header">
+      <h1>🎬 Hệ thống Quản lý Rạp Chiếu Phim</h1>
+      <p>Đăng nhập để tiếp tục</p>
+    </div>
+    
+    <% if (error) { %>
+      <div class="alert alert-error">
+        <%= error %>
+      </div>
+    <% } %>
+
+    <form method="POST" action="/login" class="login-form">
+      <div class="form-group">
+        <label for="username">Tên đăng nhập</label>
+        <input type="text" id="username" name="username" required autofocus>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mật khẩu</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+    </form>
+
+    <div class="login-info">
+      <p><strong>Tài khoản demo:</strong></p>
+      <p>Quản lý: manager1 / 123456</p>
+      <p>Bán vé: sales1 / 123456</p>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

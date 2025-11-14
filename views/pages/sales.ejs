@@ -1,1 +1,93 @@
-<!-- (Giao diện bán vé) -->
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="container">
+  <h1>Bán vé và Tra cứu Suất chiếu</h1>
+
+  <div class="search-box">
+    <h2>Tra cứu Suất chiếu</h2>
+    <form method="POST" action="/sales/search">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="movieId">Tên phim</label>
+          <select id="movieId" name="movieId">
+            <option value="">-- Tất cả --</option>
+            <% movies.forEach(movie => { %>
+              <option value="<%= movie.id %>"><%= movie.title %></option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="shiftId">Ca chiếu</label>
+          <select id="shiftId" name="shiftId">
+            <option value="">-- Tất cả --</option>
+            <% shifts.forEach(shift => { %>
+              <option value="<%= shift.id %>"><%= shift.name %> (<%= shift.time %>)</option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="date">Ngày chiếu</label>
+          <input type="date" id="date" name="date">
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <% if (showtimes.length > 0) { %>
+  <div class="results-box">
+    <h2>Kết quả tìm kiếm (<%= showtimes.length %> suất chiếu)</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Phim</th>
+          <th>Rạp</th>
+          <th>Phòng</th>
+          <th>Ca chiếu</th>
+          <th>Ngày</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% showtimes.forEach(st => { %>
+        <tr>
+          <td><%= st.movieTitle %></td>
+          <td><%= st.theaterName %></td>
+          <td><%= st.roomName %></td>
+          <td><%= st.shiftName %> (<%= st.shiftTime %>)</td>
+          <td><%= st.date %></td>
+          <td>
+            <button class="btn btn-success btn-sm" onclick="openSeatModal('<%= st.id %>')">
+              Chọn ghế
+            </button>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <% } %>
+</div>
+
+<!-- Modal chọn ghế -->
+<div id="seatModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeSeatModal()">&times;</span>
+    <h2 id="modalTitle">Chọn ghế</h2>
+    <div id="seatInfo"></div>
+    <div id="seatGrid" class="seat-grid"></div>
+    <div class="modal-footer">
+      <p>Đã chọn: <span id="selectedSeats">Chưa chọn ghế nào</span></p>
+      <button class="btn btn-primary" onclick="sellTickets()">Xác nhận bán vé</button>
+      <button class="btn btn-secondary" onclick="closeSeatModal()">Hủy</button>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

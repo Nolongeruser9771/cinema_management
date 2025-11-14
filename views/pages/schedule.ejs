@@ -1,1 +1,96 @@
-<!-- (Giao diện lập lịch) -->
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="container">
+  <h1>Lập Lịch Chiếu Phim</h1>
+
+  <% if (message) { %>
+    <div class="alert alert-<%= message.type %>">
+      <%= message.text %>
+    </div>
+  <% } %>
+
+  <div class="form-box">
+    <h2>Thêm Suất Chiếu Mới</h2>
+    <form method="POST" action="/management/schedule/add">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="movieId">Chọn phim *</label>
+          <select id="movieId" name="movieId" required>
+            <option value="">-- Chọn phim --</option>
+            <% movies.forEach(movie => { %>
+              <option value="<%= movie.id %>"><%= movie.title %></option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="roomId">Chọn phòng *</label>
+          <select id="roomId" name="roomId" required>
+            <option value="">-- Chọn phòng --</option>
+            <% rooms.forEach(room => { %>
+              <option value="<%= room.id %>"><%= room.name %> (<%= room.type %>, <%= room.seats %> ghế)</option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="shiftId">Chọn ca *</label>
+          <select id="shiftId" name="shiftId" required>
+            <option value="">-- Chọn ca --</option>
+            <% shifts.forEach(shift => { %>
+              <option value="<%= shift.id %>"><%= shift.name %> (<%= shift.time %>)</option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="date">Chọn ngày *</label>
+          <input type="date" id="date" name="date" required>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Thêm suất chiếu</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="results-box">
+    <h2>Lịch Chiếu Hiện Tại</h2>
+    <% if (showtimes.length > 0) { %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Phim</th>
+          <th>Phòng</th>
+          <th>Ca chiếu</th>
+          <th>Ngày</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% showtimes.forEach(st => { %>
+        <tr>
+          <td><%= st.movieTitle %></td>
+          <td><%= st.roomName %></td>
+          <td><%= st.shiftName %> (<%= st.shiftTime %>)</td>
+          <td><%= st.date %></td>
+          <td>
+            <form method="POST" action="/management/schedule/delete/<%= st.id %>" style="display: inline;">
+              <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa suất chiếu này?')">
+                Xóa
+              </button>
+            </form>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% } else { %>
+      <p class="no-data">Chưa có suất chiếu nào được lập.</p>
+    <% } %>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

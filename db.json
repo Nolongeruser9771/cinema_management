@@ -1,64 +1,181 @@
 {
   "users": [
-    { "id": "ql1", "username": "manager1", "password": "123", "role": "management", "theaterId": 1 },
-    { "id": "ql2", "username": "manager2", "password": "123", "role": "management", "theaterId": 2 },
-    { "id": "bv1", "username": "sales1", "password": "123", "role": "sales" },
-    { "id": "bv2", "username": "sales2", "password": "123", "role": "sales" },
-    { "id": "bv3", "username": "sales3", "password": "123", "role": "sales" },
-    { "id": "bv4", "username": "sales4", "password": "123", "role": "sales" }
+    {
+      "id": "u1",
+      "username": "manager1",
+      "password": "$2a$10$9X5yGKJ1qZ2YqHJYvZxCZeYQZ5YqH6YqHJYvZxCZeYQZ5YqH6YqHJ",
+      "role": "management",
+      "theaterId": 1
+    },
+    {
+      "id": "u2",
+      "username": "sales1",
+      "password": "$2a$10$9X5yGKJ1qZ2YqHJYvZxCZeYQZ5YqH6YqHJYvZxCZeYQZ5YqH6YqHJ",
+      "role": "sales"
+    }
   ],
   "theaters": [
-    { "id": 1, "name": "Rạp 1 - Gò Vấp" },
-    { "id": 2, "name": "Rạp 2 - Quận 1" },
-    { "id": 3, "name": "Rạp 3 - Tân Bình" },
-    { "id": 4, "name": "Rạp 4 - Thủ Đức" },
-    { "id": 5, "name": "Rạp 5 - Bình Thạnh" }
+    {
+      "id": 1,
+      "name": "CGV Nguyễn Du"
+    },
+    {
+      "id": 2,
+      "name": "CGV Vincom"
+    }
   ],
   "screeningRooms": [
-    { "id": "P101", "theaterId": 1, "name": "Phòng 1", "type": "loai1", "seats": 100 },
-    { "id": "P102", "theaterId": 1, "name": "Phòng 2", "type": "loai2", "seats": 60 }
+    {
+      "id": "r1",
+      "theaterId": 1,
+      "name": "Phòng 1",
+      "type": "loai1",
+      "seats": 100
+    },
+    {
+      "id": "r2",
+      "theaterId": 1,
+      "name": "Phòng 2",
+      "type": "loai2",
+      "seats": 60
+    },
+    {
+      "id": "r3",
+      "theaterId": 2,
+      "name": "Phòng A",
+      "type": "loai1",
+      "seats": 100
+    }
   ],
   "movies": [
-    { "id": "M001", "title": "Lật Mặt 7" },
-    { "id": "M002", "title": "Doraemon Movie" },
-    { "id": "M003", "title": "Godzilla x Kong" }
+    {
+      "id": "m1",
+      "title": "Avengers: Endgame"
+    },
+    {
+      "id": "m2",
+      "title": "Spider-Man: No Way Home"
+    },
+    {
+      "id": "m3",
+      "title": "Oppenheimer"
+    }
   ],
   "shifts": [
-    { "id": "CA1", "name": "Sáng", "time": "9:00-11:00" },
-    { "id": "CA2", "name": "Chiều", "time": "14:00-16:00" },
-    { "id": "CA3", "name": "Tối 1", "time": "18:00-20:00" },
-    { "id": "CA4", "name": "Tối 2", "time": "20:30-22:30" }
+    {
+      "id": "s1",
+      "name": "Sáng",
+      "time": "9:00-11:00"
+    },
+    {
+      "id": "s2",
+      "name": "Chiều",
+      "time": "14:00-16:00"
+    },
+    {
+      "id": "s3",
+      "name": "Tối 1",
+      "time": "18:00-20:00"
+    },
+    {
+      "id": "s4",
+      "name": "Tối 2",
+      "time": "21:00-23:00"
+    }
   ],
   "showtimes": [
-    { 
-      "id": "SC001", 
-      "movieId": "M001", 
-      "roomId": "P101", 
-      "shiftId": "CA1", 
-      "date": "2025-11-04" 
+    {
+      "id": "st1",
+      "movieId": "m1",
+      "roomId": "r1",
+      "shiftId": "s1",
+      "date": "2025-11-15"
     },
-    { 
-      "id": "SC002", 
-      "movieId": "M002", 
-      "roomId": "P102", 
-      "shiftId": "CA1", 
-      "date": "2025-11-04" 
+    {
+      "id": "st2",
+      "movieId": "m2",
+      "roomId": "r2",
+      "shiftId": "s2",
+      "date": "2025-11-15"
+    },
+    {
+      "id": "st1763134716562qbhxpee36",
+      "movieId": "m1",
+      "roomId": "r1",
+      "shiftId": "s1",
+      "date": "2025-11-16"
     }
   ],
   "tickets": [
-    { 
-      "id": "T00001", 
-      "showtimeId": "SC001", 
-      "seat": "A1", 
-      "soldAt": "2025-11-03T10:30:00", 
-      "soldBy": "bv1" 
+    {
+      "id": "t1",
+      "showtimeId": "st1",
+      "seat": "A1",
+      "soldAt": "2025-11-14T10:30:00",
+      "soldBy": "u2"
     },
-    { 
-      "id": "T00002", 
-      "showtimeId": "SC001", 
-      "seat": "A2", 
-      "soldAt": "2025-11-03T10:31:00", 
-      "soldBy": "bv2" 
+    {
+      "id": "t2",
+      "showtimeId": "st1",
+      "seat": "A2",
+      "soldAt": "2025-11-14T10:31:00",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763134832302pvmejt7z7",
+      "showtimeId": "st1",
+      "seat": "E5",
+      "soldAt": "2025-11-14T15:40:32.302Z",
+      "soldBy": "u1"
+    },
+    {
+      "id": "t176313483230272otnhbsr",
+      "showtimeId": "st1",
+      "seat": "E6",
+      "soldAt": "2025-11-14T15:40:32.302Z",
+      "soldBy": "u1"
+    },
+    {
+      "id": "t1763134832302vrgrpxtaf",
+      "showtimeId": "st1",
+      "seat": "E7",
+      "soldAt": "2025-11-14T15:40:32.302Z",
+      "soldBy": "u1"
+    },
+    {
+      "id": "t1763134879994m0pmyrrfj",
+      "showtimeId": "st1",
+      "seat": "A3",
+      "soldAt": "2025-11-14T15:41:19.994Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763134879994yz8ygdcs2",
+      "showtimeId": "st1",
+      "seat": "A4",
+      "soldAt": "2025-11-14T15:41:19.994Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763134879994ye5wz11rq",
+      "showtimeId": "st1",
+      "seat": "A5",
+      "soldAt": "2025-11-14T15:41:19.994Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763134949339vjiokmt0r",
+      "showtimeId": "st1",
+      "seat": "F5",
+      "soldAt": "2025-11-14T15:42:29.340Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763134949340cciku2jlb",
+      "showtimeId": "st1",
+      "seat": "F6",
+      "soldAt": "2025-11-14T15:42:29.340Z",
+      "soldBy": "u2"
     }
   ]
 }
