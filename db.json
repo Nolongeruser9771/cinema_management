@@ -125,7 +125,8 @@
       "date": "2025-11-15",
       "theaterId": 1,
       "standardPrice": 55000,
-      "vipPrice": 85000
+      "vipPrice": 85000,
+      "totalSeats": 60
     },
     {
       "id": "st17631410607939dckjxbux",
@@ -135,7 +136,8 @@
       "theaterId": 1,
       "date": "2025-11-15",
       "standardPrice": 150000,
-      "vipPrice": 200000
+      "vipPrice": 200000,
+      "totalSeats": 100
     },
     {
       "id": "st1763143307545y1qrehxd2",
@@ -145,7 +147,8 @@
       "theaterId": 1,
       "date": "2025-11-14",
       "standardPrice": 70000,
-      "vipPrice": 140000
+      "vipPrice": 140000,
+      "totalSeats": 60
     }
   ],
   "tickets": [
@@ -247,6 +250,546 @@
       "price": 80000,
       "soldAt": "2025-11-14T18:01:05.122Z",
       "soldBy": "u1"
+    },
+    {
+      "id": "t1763208929031yafxuv5ot",
+      "showtimeId": "st2",
+      "seat": "C5",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:15:29.031Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t17632089290324hcjn58iz",
+      "showtimeId": "st2",
+      "seat": "F5",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:15:29.032Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208929032rtkn26y4y",
+      "showtimeId": "st2",
+      "seat": "F4",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:15:29.032Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208929032erdcgjj5w",
+      "showtimeId": "st2",
+      "seat": "D5",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:15:29.032Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t176320892903286v4xhwqo",
+      "showtimeId": "st2",
+      "seat": "A5",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:15:29.032Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043jo5ujoehy",
+      "showtimeId": "st2",
+      "seat": "A2",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043s20dm2pj7",
+      "showtimeId": "st2",
+      "seat": "A1",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043109g9j7cg",
+      "showtimeId": "st2",
+      "seat": "B1",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043r32nw5ynw",
+      "showtimeId": "st2",
+      "seat": "B2",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043im2fb56lb",
+      "showtimeId": "st2",
+      "seat": "B3",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043b6qbaij2a",
+      "showtimeId": "st2",
+      "seat": "A3",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043y6knlx8g3",
+      "showtimeId": "st2",
+      "seat": "A4",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t17632089600439v6y6wd3w",
+      "showtimeId": "st2",
+      "seat": "B4",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043lc4g7qq4l",
+      "showtimeId": "st2",
+      "seat": "B5",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043s7gjjn2di",
+      "showtimeId": "st2",
+      "seat": "A6",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043hz37p04a2",
+      "showtimeId": "st2",
+      "seat": "B6",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043sguoycba0",
+      "showtimeId": "st2",
+      "seat": "B7",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043pdz7zltvt",
+      "showtimeId": "st2",
+      "seat": "A7",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043nq0h3p5uf",
+      "showtimeId": "st2",
+      "seat": "A8",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043m57w0ofj8",
+      "showtimeId": "st2",
+      "seat": "B8",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043u1cjm2ghn",
+      "showtimeId": "st2",
+      "seat": "C7",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t176320896004359aql6dfz",
+      "showtimeId": "st2",
+      "seat": "C8",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043kwpwjspni",
+      "showtimeId": "st2",
+      "seat": "D8",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043f8xiczsca",
+      "showtimeId": "st2",
+      "seat": "C1",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043f2y1r6d6w",
+      "showtimeId": "st2",
+      "seat": "D1",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043xvf9gk7md",
+      "showtimeId": "st2",
+      "seat": "E1",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043omxxwsdua",
+      "showtimeId": "st2",
+      "seat": "F1",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043pyn3ru65x",
+      "showtimeId": "st2",
+      "seat": "F2",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043buv2lzy1x",
+      "showtimeId": "st2",
+      "seat": "E2",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043ju4ty2yja",
+      "showtimeId": "st2",
+      "seat": "D2",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043m4mowrusf",
+      "showtimeId": "st2",
+      "seat": "C2",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t17632089600430vm3mmj3n",
+      "showtimeId": "st2",
+      "seat": "C3",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043m38r18m5y",
+      "showtimeId": "st2",
+      "seat": "D3",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043u7wohihbu",
+      "showtimeId": "st2",
+      "seat": "E3",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043tsx2mues4",
+      "showtimeId": "st2",
+      "seat": "F3",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043i7h00xium",
+      "showtimeId": "st2",
+      "seat": "E4",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t17632089600431oa5saw5l",
+      "showtimeId": "st2",
+      "seat": "D4",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043i0bw39zms",
+      "showtimeId": "st2",
+      "seat": "C4",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043i3209x68d",
+      "showtimeId": "st2",
+      "seat": "E5",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043acb4vea5f",
+      "showtimeId": "st2",
+      "seat": "E6",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043pqi5zvm7q",
+      "showtimeId": "st2",
+      "seat": "D6",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043urzr7oqr4",
+      "showtimeId": "st2",
+      "seat": "C6",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043ggzu0mygf",
+      "showtimeId": "st2",
+      "seat": "D7",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t176320896004314w6i91tm",
+      "showtimeId": "st2",
+      "seat": "E7",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043xjr8izje6",
+      "showtimeId": "st2",
+      "seat": "F6",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043bpzad1udo",
+      "showtimeId": "st2",
+      "seat": "F7",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043gzakp6swy",
+      "showtimeId": "st2",
+      "seat": "F8",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043sh23qec9b",
+      "showtimeId": "st2",
+      "seat": "E8",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t17632089600438zo4ttq6e",
+      "showtimeId": "st2",
+      "seat": "F9",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043d0qmwhkv6",
+      "showtimeId": "st2",
+      "seat": "E9",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043aioayarq2",
+      "showtimeId": "st2",
+      "seat": "F10",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043ccwkzcbut",
+      "showtimeId": "st2",
+      "seat": "E10",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043gbslh7cg5",
+      "showtimeId": "st2",
+      "seat": "D10",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043o80m5x4fq",
+      "showtimeId": "st2",
+      "seat": "D9",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043e96qhk8fs",
+      "showtimeId": "st2",
+      "seat": "C9",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043edm0cdwn6",
+      "showtimeId": "st2",
+      "seat": "C10",
+      "seatType": "vip",
+      "price": 85000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043mu0googa4",
+      "showtimeId": "st2",
+      "seat": "B10",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043k4fd69t27",
+      "showtimeId": "st2",
+      "seat": "B9",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043tuotp5pte",
+      "showtimeId": "st2",
+      "seat": "A9",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763208960043pzj2guol1",
+      "showtimeId": "st2",
+      "seat": "A10",
+      "seatType": "standard",
+      "price": 55000,
+      "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
     }
   ],
   "theaterManagers": [

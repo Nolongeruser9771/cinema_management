@@ -18,12 +18,17 @@ router.get('/schedule', isAuthenticated, isManager, (req, res) => {
   const roomIds = rooms.map(r => r.id);
   const showtimes = db.showtimes.filter(st => roomIds.includes(st.roomId));
   
-  // Bổ sung thông tin chi tiết
+  // Bổ sung thông tin chi tiết và tình trạng bán vé
   const showtimeDetails = showtimes.map(st => {
     const movie = db.movies.find(m => m.id === st.movieId);
     const room = db.screeningRooms.find(r => r.id === st.roomId);
     const theater = db.theaters.find(t => t.id === st.theaterId);
     const shift = db.shifts.find(s => s.id === st.shiftId);
+    
+    // Đếm số vé đã bán
+    const soldTickets = db.tickets.filter(t => t.showtimeId === st.id).length;
+    const totalSeats = st.totalSeats || room?.seats || 0;
+    const isSoldOut = soldTickets >= totalSeats;
     
     return {
       ...st,
@@ -31,7 +36,10 @@ router.get('/schedule', isAuthenticated, isManager, (req, res) => {
       theaterName: theater?.name,
       roomName: room?.name,
       shiftName: shift?.name,
-      shiftTime: shift?.time
+      shiftTime: shift?.time,
+      soldTickets,
+      totalSeats,
+      isSoldOut
     };
   });
 
@@ -73,18 +81,42 @@ router.post('/schedule/add', isAuthenticated, isManager, (req, res) => {
     const rooms = db.screeningRooms.filter(r => managedTheaterIds.includes(r.theaterId));
     const showtimes = db.showtimes.filter(st => rooms.map(r => r.id).includes(st.roomId));
     
+    // Bổ sung thông tin chi tiết và tình trạng bán vé cho error message
+    const showtimeDetails = showtimes.map(st => {
+      const movie = db.movies.find(m => m.id === st.movieId);
+      const room = db.screeningRooms.find(r => r.id === st.roomId);
+      const theater = db.theaters.find(t => t.id === st.theaterId);
+      const shift = db.shifts.find(s => s.id === st.shiftId);
+      
+      const soldTickets = db.tickets.filter(t => t.showtimeId === st.id).length;
+      const totalSeats = st.totalSeats || room?.seats || 0;
+      const isSoldOut = soldTickets >= totalSeats;
+      
+      return {
+        ...st,
+        movieTitle: movie?.title,
+        theaterName: theater?.name,
+        roomName: room?.name,
+        shiftName: shift?.name,
+        shiftTime: shift?.time,
+        soldTickets,
+        totalSeats,
+        isSoldOut
+      };
+    });
+    
     return res.render('pages/schedule', {
       user: req.session,
       movies: db.movies,
       theaters: managedTheaters,
       rooms,
       shifts: db.shifts,
-      showtimes,
+      showtimes: showtimeDetails,
       message: { type: 'error', text: 'Phòng chiếu đã có lịch vào ca này' }
     });
   }
   
-  // Tạo suất chiếu mới
+  // Tạo suất chiếu mới với totalSeats
   const newShowtime = {
     id: generateId('st'),
     movieId,
@@ -93,7 +125,8 @@ router.post('/schedule/add', isAuthenticated, isManager, (req, res) => {
     theaterId: parseInt(theaterId),
     date,
     standardPrice: parseFloat(standardPrice),
-    vipPrice: parseFloat(vipPrice)
+    vipPrice: parseFloat(vipPrice),
+    totalSeats: room.seats // Lấy số ghế từ phòng chiếu
   };
   
   db.showtimes.push(newShowtime);

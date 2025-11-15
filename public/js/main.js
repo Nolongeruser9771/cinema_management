@@ -15,14 +15,19 @@ async function openSeatModal(showtimeId) {
     // Cập nhật tiêu đề modal
     document.getElementById('modalTitle').textContent = 'Chọn ghế - ' + data.showtime.movieTitle;
     
-    // Hiển thị thông tin suất chiếu
+    // Hiển thị thông tin suất chiếu với số vé đã bán
+    const soldCount = soldSeats.length;
+    const totalSeats = room.seats;
+    const availableSeats = totalSeats - soldCount;
+    
     document.getElementById('seatInfo').innerHTML = `
-      Phim: ${data.showtime.movieTitle}
-      Ca chiếu: ${data.showtime.shiftName} (${data.showtime.shiftTime})
-      Ngày: ${data.showtime.date}
-      Phòng: ${room.name} (${room.seats} ghế)
-      Giá vé thường: ${data.showtime.standardPrice.toLocaleString('vi-VN')} đ
-      Giá vé VIP: ${data.showtime.vipPrice.toLocaleString('vi-VN')} đ
+Phim: ${data.showtime.movieTitle}
+Ca chiếu: ${data.showtime.shiftName} (${data.showtime.shiftTime})
+Ngày: ${data.showtime.date}
+Phòng: ${room.name} (${room.seats} ghế)
+Đã bán: ${soldCount}/${totalSeats} vé (Còn lại: ${availableSeats} ghế)
+Giá vé thường: ${data.showtime.standardPrice.toLocaleString('vi-VN')} đ
+Giá vé VIP: ${data.showtime.vipPrice.toLocaleString('vi-VN')} đ
     `;
     
     // Tạo lưới ghế
@@ -78,8 +83,7 @@ function createSeatGrid(seatLayout, soldSeats) {
       
       // Style cho ghế VIP
       if (seatType === 'vip') {
-        seat.style.borderColor = '#ff6b6b';
-        seat.style.background = '#ffebee';
+        seat.classList.add('seat-vip');
       }
       
       // Kiểm tra ghế đã bán
@@ -135,11 +139,11 @@ function updateSelectedSeatsDisplay() {
   display.textContent = selectedSeats.map(s => s.number).join(', ');
   
   // Hiển thị chi tiết giá
-  let breakdown = 'Chi tiết:';
+  let breakdown = 'Chi tiết:\n';
   let total = 0;
   
   selectedSeats.forEach(seat => {
-    breakdown += `Ghế ${seat.number} (${seat.type === 'vip' ? 'VIP' : 'Thường'}): ${seat.price.toLocaleString('vi-VN')} đ`;
+    breakdown += `Ghế ${seat.number} (${seat.type === 'vip' ? 'VIP' : 'Thường'}): ${seat.price.toLocaleString('vi-VN')} đ\n`;
     total += seat.price;
   });
   
@@ -214,4 +218,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentMonth = new Date().toISOString().slice(0, 7);
     monthInput.value = currentMonth;
   }
+  
+  // Highlight active nav link
+  highlightActiveNavLink();
 });
+
+// Hàm highlight active nav link dựa trên URL hiện tại
+function highlightActiveNavLink() {
+  const currentPath = window.location.pathname;
+  const navLinks = document.querySelectorAll('.nav-link:not(.logout)');
+  
+  navLinks.forEach(link => {
+    const linkPath = link.getAttribute('href');
+    
+    // Exact match hoặc starts with cho nested routes
+    if (linkPath === currentPath || (linkPath !== '/' && currentPath.startsWith(linkPath))) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+}

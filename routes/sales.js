@@ -3,7 +3,7 @@ const router = express.Router();
 const { loadDb, saveDb, generateId } = require('../services/dbService');
 const { isAuthenticated } = require('../middleware/authMiddleware');
 
-// Trang bán vé
+// Trang bán vé - cho phép cả manager và sales
 router.get('/', isAuthenticated, (req, res) => {
   const db = loadDb();
   res.render('pages/sales', {
@@ -15,7 +15,7 @@ router.get('/', isAuthenticated, (req, res) => {
   });
 });
 
-// API tra cứu suất chiếu
+// API tra cứu suất chiếu - cho phép cả manager và sales
 router.post('/search', isAuthenticated, (req, res) => {
   const { movieId, theaterIds, shiftId, date } = req.body;
   const db = loadDb();
@@ -39,12 +39,17 @@ router.post('/search', isAuthenticated, (req, res) => {
     showtimes = showtimes.filter(st => st.date === date);
   }
   
-  // Bổ sung thông tin chi tiết
+  // Bổ sung thông tin chi tiết và tính số vé đã bán
   const results = showtimes.map(st => {
     const movie = db.movies.find(m => m.id === st.movieId);
     const room = db.screeningRooms.find(r => r.id === st.roomId);
     const theater = db.theaters.find(t => t.id === st.theaterId);
     const shift = db.shifts.find(s => s.id === st.shiftId);
+    
+    // Đếm số vé đã bán
+    const soldTickets = db.tickets.filter(t => t.showtimeId === st.id).length;
+    const totalSeats = st.totalSeats || room?.seats || 0;
+    const isSoldOut = soldTickets >= totalSeats;
     
     return {
       ...st,
@@ -52,7 +57,10 @@ router.post('/search', isAuthenticated, (req, res) => {
       theaterName: theater?.name,
       roomName: room?.name,
       shiftName: shift?.name,
-      shiftTime: shift?.time
+      shiftTime: shift?.time,
+      soldTickets,
+      totalSeats,
+      isSoldOut
     };
   });
   
@@ -71,7 +79,7 @@ function getSeatType(seatNumber, seatLayout) {
   return seatLayout.vipRows.includes(row) ? 'vip' : 'standard';
 }
 
-// API lấy thông tin ghế của suất chiếu
+// API lấy thông tin ghế của suất chiếu - cho phép cả manager và sales
 router.get('/showtime/:id/seats', isAuthenticated, (req, res) => {
   const showtimeId = req.params.id;
   const db = loadDb();
@@ -98,7 +106,8 @@ router.get('/showtime/:id/seats', isAuthenticated, (req, res) => {
       shiftTime: shift?.time,
       date: showtime.date,
       standardPrice: showtime.standardPrice,
-      vipPrice: showtime.vipPrice
+      vipPrice: showtime.vipPrice,
+      totalSeats: showtime.totalSeats || room?.seats || 0
     },
     room: {
       name: room?.name,
@@ -110,7 +119,7 @@ router.get('/showtime/:id/seats', isAuthenticated, (req, res) => {
   });
 });
 
-// API bán vé
+// API bán vé - cho phép cả manager và sales
 router.post('/sell-ticket', isAuthenticated, (req, res) => {
   const { showtimeId, seats } = req.body;
   const db = loadDb();
@@ -129,6 +138,19 @@ router.post('/sell-ticket', isAuthenticated, (req, res) => {
   
   const seatArray = Array.isArray(seats) ? seats : [seats];
   
+  // Kiểm tra số lượng vé còn lại
+  const totalSeats = showtime.totalSeats || room?.seats || 0;
+  const currentSoldCount = soldSeats.length;
+  const newTotalSold = currentSoldCount + seatArray.length;
+  
+  if (newTotalSold > totalSeats) {
+    return res.json({ 
+      success: false, 
+      message: `Không đủ ghế trống. Chỉ còn ${totalSeats - currentSoldCount} ghế.` 
+    });
+  }
+  
+  // Kiểm tra ghế cụ thể đã được bán chưa
   for (const seat of seatArray) {
     if (soldSeats.includes(seat)) {
       return res.json({ success: false, message: `Ghế ${seat} đã được bán` });

@@ -79,7 +79,7 @@
     </form>
   </div>
 
-  <!-- Improved results box with better visual hierarchy -->
+  <!-- Improved results box with ticket status -->
   <div class="results-box">
     <h2>📊 Lịch Chiếu Hiện Tại</h2>
     <% if (showtimes.length > 0) { %>
@@ -94,11 +94,25 @@
             <th>Ngày</th>
             <th>Giá thường</th>
             <th>Giá VIP</th>
+            <th>Tình trạng vé</th>
             <th>Thao tác</th>
           </tr>
         </thead>
         <tbody>
-          <% showtimes.forEach(st => { %>
+          <% showtimes.forEach(st => { 
+            const availableSeats = st.totalSeats - st.soldTickets;
+            const percentSold = st.totalSeats > 0 ? (st.soldTickets / st.totalSeats * 100).toFixed(0) : 0;
+            let statusClass = 'available';
+            let statusText = 'Còn chỗ';
+            
+            if (st.isSoldOut) {
+              statusClass = 'soldout';
+              statusText = 'Hết vé';
+            } else if (percentSold >= 70) {
+              statusClass = 'filling';
+              statusText = 'Sắp hết';
+            }
+          %>
           <tr>
             <td><strong><%= st.movieTitle %></strong></td>
             <td><%= st.theaterName %></td>
@@ -108,9 +122,19 @@
             <td><span style="color: #34c759; font-weight: 600;"><%= st.standardPrice.toLocaleString('vi-VN') %> đ</span></td>
             <td><span style="color: #ffc107; font-weight: 600;"><%= st.vipPrice.toLocaleString('vi-VN') %> đ</span></td>
             <td>
+              <div style="display: flex; flex-direction: column; gap: 4px; align-items: center;">
+                <span class="seat-availability <%= statusClass %>">
+                  <%= statusText %>
+                </span>
+                <small style="color: #666; font-size: 12px;">
+                  <%= st.soldTickets %>/<%= st.totalSeats %> vé
+                </small>
+              </div>
+            </td>
+            <td>
               <form method="POST" action="/management/schedule/delete/<%= st.id %>" style="display: inline;">
                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa suất chiếu này?')">
-                  Xóa
+                  🗑️ Xóa
                 </button>
               </form>
             </td>

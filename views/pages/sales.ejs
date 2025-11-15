@@ -67,11 +67,25 @@
             <th>Ca chiếu</th>
             <th>Ngày</th>
             <th>Giá</th>
+            <th>Tình trạng</th>
             <th>Thao tác</th>
           </tr>
         </thead>
         <tbody>
-          <% showtimes.forEach(st => { %>
+          <% showtimes.forEach(st => { 
+            const availableSeats = st.totalSeats - st.soldTickets;
+            const percentSold = (st.soldTickets / st.totalSeats * 100).toFixed(0);
+            let statusClass = 'available';
+            let statusText = 'Còn chỗ';
+            
+            if (st.isSoldOut) {
+              statusClass = 'soldout';
+              statusText = 'Hết vé';
+            } else if (percentSold >= 70) {
+              statusClass = 'filling';
+              statusText = 'Sắp hết';
+            }
+          %>
           <tr>
             <td><strong><%= st.movieTitle %></strong></td>
             <td><%= st.theaterName %></td>
@@ -83,8 +97,22 @@
               <span style="color: #ffc107; font-weight: 600;"><%= st.vipPrice.toLocaleString('vi-VN') %> đ</span>
             </td>
             <td>
-              <button class="btn btn-success btn-sm" onclick="openSeatModal('<%= st.id %>')">
-                Chọn ghế
+              <div style="display: flex; flex-direction: column; gap: 4px;">
+                <span class="seat-availability <%= statusClass %>">
+                  <%= statusText %>
+                </span>
+                <small style="color: #666; font-size: 12px;">
+                  <%= st.soldTickets %>/<%= st.totalSeats %> vé
+                </small>
+              </div>
+            </td>
+            <td>
+              <button 
+                class="btn btn-success btn-sm" 
+                onclick="openSeatModal('<%= st.id %>')"
+                <%= st.isSoldOut ? 'disabled' : '' %>
+              >
+                <%= st.isSoldOut ? '❌ Hết vé' : '✓ Chọn ghế' %>
               </button>
             </td>
           </tr>
