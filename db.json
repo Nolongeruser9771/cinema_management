@@ -3,14 +3,14 @@
     {
       "id": "u1",
       "username": "manager1",
-      "password": "$2a$10$9X5yGKJ1qZ2YqHJYvZxCZeYQZ5YqH6YqHJYvZxCZeYQZ5YqH6YqHJ",
+      "password": "$2a$10$bx1X75Gpjy.GBSIQrYiydOR8sO8FaeCCXS7Q7LX5II0hNv6WT/SIq",
       "role": "management",
       "theaterId": 1
     },
     {
       "id": "u2",
       "username": "sales1",
-      "password": "$2a$10$9X5yGKJ1qZ2YqHJYvZxCZeYQZ5YqH6YqHJYvZxCZeYQZ5YqH6YqHJ",
+      "password": "$2a$10$bx1X75Gpjy.GBSIQrYiydOR8sO8FaeCCXS7Q7LX5II0hNv6WT/SIq",
       "role": "sales"
     }
   ],
@@ -148,6 +148,17 @@
       "date": "2025-11-14",
       "standardPrice": 70000,
       "vipPrice": 140000,
+      "totalSeats": 60
+    },
+    {
+      "id": "st1763222809408or0d33903",
+      "movieId": "m3",
+      "roomId": "r2",
+      "shiftId": "s2",
+      "theaterId": 1,
+      "date": "2025-11-21",
+      "standardPrice": 50000,
+      "vipPrice": 80000,
       "totalSeats": 60
     }
   ],
@@ -789,6 +800,15 @@
       "seatType": "standard",
       "price": 55000,
       "soldAt": "2025-11-15T12:16:00.043Z",
+      "soldBy": "u2"
+    },
+    {
+      "id": "t1763222758666xhnwc8nev",
+      "showtimeId": "st17631410607939dckjxbux",
+      "seat": "J4",
+      "seatType": "standard",
+      "price": 150000,
+      "soldAt": "2025-11-15T16:05:58.666Z",
       "soldBy": "u2"
     }
   ],

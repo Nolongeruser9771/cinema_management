@@ -31,8 +31,7 @@ router.post('/login', async (req, res) => {
     return res.render('pages/login', { error: 'Tên đăng nhập hoặc mật khẩu không đúng' });
   }
 
-  // So sánh mật khẩu (mật khẩu demo là 123456)
-  const isValidPassword = password === '123456';
+  const isValidPassword = await bcrypt.compare(password, user.password);
   
   if (!isValidPassword) {
     return res.render('pages/login', { error: 'Tên đăng nhập hoặc mật khẩu không đúng' });
